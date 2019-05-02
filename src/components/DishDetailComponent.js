@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
 const minLength = (len) => (val) => val && (val.length >= len);
+const maxLength = (len) => (val) => val && (val.length < len);
 
 class CommentForm extends Component {
 
@@ -50,7 +51,8 @@ class CommentForm extends Component {
                                         <Control.text model=".name" name="name" md={12}
                                             placeholder="Your Name"  className="form-control"
                                             validators={{
-                                                minLength: minLength(2)
+                                                minLength: minLength(2),
+                                                maxLength: maxLength(15)
                                             }}
                                             />
                                         <Errors
@@ -59,6 +61,7 @@ class CommentForm extends Component {
                                             show="touched"
                                             messages={{
                                                 minLength: 'Must be greater than 2 characters',
+                                                maxLength: "Must be less than 15 characters"
                                             }}
                                         />
                                 </Row>
@@ -112,9 +115,12 @@ function RenderComments({comments}) {
             );
         });
         return (
-            <ul class="list-unstyled">
-                {commentsJSX}
-            </ul>
+            <>
+                <ul class="list-unstyled">
+                    {commentsJSX}
+                </ul>
+                <CommentForm />
+            </>
         );
     }else{
         return (
@@ -144,7 +150,6 @@ const  DishDetail = (props) => {
             <div  className="col-12 col-md-5 m-1">
                 <h4>Comments</h4>
                 <RenderComments comments={props.comments} />
-                <CommentForm />
             </div>
             
         </div>
