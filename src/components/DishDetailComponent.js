@@ -19,7 +19,9 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        alert('Current State is: ' + JSON.stringify(values));
+        this.props.addComment(this.props.dishId, values.rating, values.name, values.comment);
+        console.log(values);
+        //alert('Current State is: ' + JSON.stringify(values));
         // event.preventDefault();
     }
 
@@ -36,7 +38,7 @@ class CommentForm extends Component {
                             <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                                 <Row className="form-group">
                                         <Label htmlFor="rating">Rating</Label>
-                                        <Control.select className="form-control" 
+                                        <Control.select className="form-control" defaultValue="1"
                                                 model=".rating" name="rating" md={12}
                                                 >
                                             <option>1</option>
@@ -103,7 +105,7 @@ else
 
 }
 
-function RenderComments({comments}) {
+function RenderComments({comments,addComment, dishId}) {
     if(comments != null){
         const commentsJSX = comments.map(comment=>{
             const date=new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)));
@@ -119,7 +121,7 @@ function RenderComments({comments}) {
                 <ul class="list-unstyled">
                     {commentsJSX}
                 </ul>
-                <CommentForm />
+                <CommentForm dishId={dishId} addComment={addComment} />
             </>
         );
     }else{
@@ -149,8 +151,11 @@ const  DishDetail = (props) => {
             </div>
             <div  className="col-12 col-md-5 m-1">
                 <h4>Comments</h4>
-                <RenderComments comments={props.comments} />
-            </div>
+                <RenderComments comments={props.comments}
+                    addComment={props.addComment}
+                    dishId={props.dish.id}
+                />            
+      </div>
             
         </div>
         </div>
