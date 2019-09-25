@@ -6,6 +6,10 @@ import {baseUrl} from '../shared/baseUrl.js';
 import { FadeTransform } from 'react-animation-components';
 
 function RenderCard({item, isLoading, errMess}) {
+    console.log(item);
+    console.log("isloading:"+isLoading);
+    console.log("errormsg"+errMess);
+
     if (isLoading) {
         return(
                 <Loading />
@@ -47,7 +51,7 @@ function Home(props) {
                     <RenderCard item={props.promotion} isLoading={props.promoLoading} errMess={props.promoErrMess}/>
                 </div>
                 <div className="col-12 col-md m-1">
-                    <RenderCard item={props.leader} isLoading={props.dishesLoading} errMess={props.dishesErrMess}/>
+                    <RenderCard item={props.leader} isLoading={props.leadersLoading} errMess={props.leadersErrMess}/>
                 </div>
             </div>
         </div>
