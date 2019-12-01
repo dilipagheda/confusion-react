@@ -1,0 +1,13 @@
+version: '3'
+services:
+  confusion-react:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+  api:
+    build: 
+      context:  ./json-server
+    ports:
+      - "3001:3001"
