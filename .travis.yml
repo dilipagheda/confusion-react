@@ -8,3 +8,4 @@ script:
   - echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push dilipagheda/confusion-react
   - docker push dilipagheda/confusion-json-server
+  - docker logout
